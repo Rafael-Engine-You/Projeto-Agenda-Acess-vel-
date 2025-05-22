@@ -418,6 +418,8 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     let currentSlide = 0;
+    let slideTimer = null;
+    const slideDuration = 30000; // 10 segundos
 
     function updateIndicator() {
       indicator.textContent = `Slide ${currentSlide + 1} de ${slides.length}`;
@@ -425,15 +427,42 @@
       nextBtn.disabled = currentSlide === slides.length - 1;
     }
 
-    function changeSlide(direction) {
+    function showSlide(index) {
       slides[currentSlide].classList.remove('active');
-      currentSlide = Math.max(0, Math.min(currentSlide + direction, slides.length - 1));
+      currentSlide = index;
       slides[currentSlide].classList.add('active');
       updateIndicator();
+      resetTimer();
+    }
+
+    function changeSlide(direction) {
+      let newIndex = Math.max(0, Math.min(currentSlide + direction, slides.length - 1));
+      if (newIndex !== currentSlide) {
+        showSlide(newIndex);
+      }
+    }
+
+    function nextSlideAuto() {
+      if (currentSlide < slides.length - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function resetTimer() {
+      if (slideTimer) clearTimeout(slideTimer);
+      if (currentSlide < slides.length - 1) {
+        slideTimer = setTimeout(nextSlideAuto, slideDuration);
+      }
     }
 
     // Inicialização
+    slides[currentSlide].classList.add('active');
     updateIndicator();
+    resetTimer();
+
+    prevBtn.addEventListener('click', () => resetTimer());
+    nextBtn.addEventListener('click', () => resetTimer());
+  </script>
   </script>
 </body>
 </html>
