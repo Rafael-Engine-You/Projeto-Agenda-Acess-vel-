@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agenda Acessível — Apresentação Profissional</title>
+  <style>
+    :root {
+      --primary: #1565c0;
+      --primary-dark: #0d47a1;
+      --primary-light: #e3f0fc;
+      --accent: #42a5f5;
+      --background: #f0f6fc;
+      --white: #fff;
+      --text: #1a2636;
+      --muted: #6c7a89;
+      --border: #c3d3e7;
+      --shadow: 0 8px 32px 0 rgba(21,101,192,0.13);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #e3f0fc 0%, #42a5f5 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .wave-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 220px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.95;
+    }
+    .icon-bg {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 120px;
+      height: 120px;
+      opacity: 0.08;
+      z-index: 0;
+      background: url('https://img.icons8.com/ios-filled/500/1565c0/accessibility2.png') no-repeat center center;
+      background-size: contain;
+      pointer-events: none;
+    }
+    .container {
+      max-width: 900px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border-radius: 22px;
+      padding: 56px 48px 36px 48px;
+      margin: 70px 0 40px 0;
+      text-align: left;
+      position: relative;
+      border: 2px solid var(--border);
+      z-index: 1;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    h1 {
+      text-align: center;
+      font-size: 44px;
+      margin-bottom: 18px;
+      color: var(--primary-dark);
+      letter-spacing: 1.5px;
+      font-weight: 800;
+      text-shadow: 0 2px 12px var(--primary-light);
+    }
+    .subtitle {
+      text-align: center;
+      color: var(--accent);
+      font-size: 22px;
+      margin-bottom: 28px;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    h2 {
+      color: var(--primary);
+      font-size: 30px;
+      margin-bottom: 18px;
+      margin-top: 0;
+      font-weight: 700;
+      border-left: 6px solid var(--accent);
+      padding-left: 14px;
+      background: linear-gradient(90deg, var(--primary-light) 0 60%, transparent 100%);
+      border-radius: 4px;
+    }
+    ul {
+      padding-left: 30px;
+      margin-top: 0;
+      margin-bottom: 18px;
+    }
+    ul li {
+      margin-bottom: 12px;
+      font-size: 19px;
+      line-height: 1.7;
+      color: var(--text);
+      position: relative;
+    }
+    ul li::marker {
+      color: var(--accent);
+      font-size: 1.2em;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 18px;
+      margin-top: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      gap: 10px;
+    }
+    button {
+      padding: 13px 38px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--primary) 60%, var(--accent) 100%);
+      color: var(--white);
+      transition: background 0.3s, box-shadow 0.3s, transform 0.1s;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(21,101,192,0.10);
+      outline: none;
+      letter-spacing: 1px;
+    }
+    button:disabled {
+      background: #b3c6e0;
+      cursor: not-allowed;
+      color: #e3e3e3;
+      box-shadow: none;
+    }
+    button:hover:not(:disabled) {
+      background: linear-gradient(90deg, var(--primary-dark) 60%, var(--accent) 100%);
+      box-shadow: 0 4px 16px rgba(21,101,192,0.13);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .slide-indicator {
+      font-size: 17px;
+      color: var(--muted);
+      margin: 0 16px;
+      min-width: 120px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .quote {
+      font-style: italic;
+      color: var(--primary-dark);
+      background: var(--primary-light);
+      border-left: 5px solid var(--accent);
+      padding: 14px 22px;
+      margin: 24px 0;
+      border-radius: 10px;
+      font-size: 19px;
+      box-shadow: 0 2px 8px rgba(66,165,245,0.08);
+    }
+    .highlight {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .authors {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 18px;
+      color: var(--primary-dark);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 32px;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .slide {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .slide.active {
+      display: block;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 18px 8px 18px 8px; min-height: 0;}
+      h1 { font-size: 25px; }
+      h2 { font-size: 18px; }
+      .subtitle { font-size: 15px;}
+      ul li, p, .quote { font-size: 14px; }
+      button { width: 45%; font-size: 14px; }
+      .slide-indicator { font-size: 12px; }
+      .icon-bg { width: 60px; height: 60px; bottom: 10px; right: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Wave Background -->
+  <svg class="wave-bg" viewBox="0 0 1440 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#1565c0" fill-opacity="0.13" d="M0,100L1440,0L1440,220L0,220Z"></path>
+    <path fill="#42a5f5" fill-opacity="0.10" d="M0,160L1440,60L1440,220L0,220Z"></path>
+  </svg>
+  <div class="icon-bg"></div>
+
+  <h1>Agenda Acessível</h1>
+  <div class="subtitle">Inclusão digital e autonomia no acesso à saúde pública</div>
+  <div class="authors">
+    Autores: Marcos Davi, Guilherme José, Marcio Rafael
+  </div>
+  <div class="container">
+    <div class="slide active">
+      <h2>O que é o Agenda Acessível?</h2>
+      <p>
+        O <span class="highlight">Agenda Acessível</span> é um aplicativo gratuito que revoluciona o <strong>agendamento, confirmação e cancelamento</strong> de consultas e exames no SUS.
+      </p>
+      <ul>
+        <li>Promove <strong>inclusão digital</strong>, <strong>autonomia</strong> e <strong>acesso universal</strong> à saúde.</li>
+        <li>Desenvolvido para <strong>idosos</strong>, <strong>pessoas com deficiência</strong> e usuários com baixa letrabilidade digital.</li>
+        <li>Interface intuitiva, acessível e adaptável a diferentes perfis.</li>
+        <li>Foco em <strong>simplicidade</strong> e <strong>acessibilidade</strong> em cada etapa.</li>
+      </ul>
+      <div class="quote">
+        “Tecnologia só é progresso se incluir a todos.”
+      </div>
+    </div>
+
+    <div class="slide">
+      <h2>Por que foi criado?</h2>
+      <ul>
+        <li>Milhões de brasileiros enfrentam barreiras digitais para acessar serviços de saúde.</li>
+        <li>Filas, deslocamentos e dificuldades de comunicação prejudicam o cuidado.</li>
+        <li>O Agenda Acessível nasceu para <strong>reduzir desigualdades</strong> e <strong>garantir dignidade</strong> no acesso ao SUS.</li>
+        <li>Baseado em pesquisas com usuários reais e profissionais da saúde.</li>
+      </ul>
+      <p>
+        O projeto busca transformar o acesso à saúde pública, tornando-o mais humano, eficiente e inclusivo.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Quem vai se beneficiar?</h2>
+      <ul>
+        <li><strong>Idosos</strong> com dificuldades motoras, visuais ou cognitivas.</li>
+        <li><strong>Pessoas com deficiência</strong>: visual, auditiva, motora ou intelectual.</li>
+        <li><strong>Usuários com pouca familiaridade</strong> com celulares, aplicativos e leitura digital.</li>
+        <li>Familiares e cuidadores que auxiliam no acesso à saúde.</li>
+      </ul>
+      <p>
+        O aplicativo foi pensado para garantir que todos possam utilizar, independentemente de suas limitações. A acessibilidade é prioridade em cada detalhe.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Como funciona o agendamento?</h2>
+      <ul>
+        <li>Passo a passo guiado, com <strong>voz, imagens e textos curtos</strong>.</li>
+        <li>Escolha de especialidade, local e horário de forma simples e intuitiva.</li>
+        <li>Confirmação em poucos toques, com feedback visual e sonoro.</li>
+        <li>Possibilidade de visualizar e alterar informações antes de finalizar.</li>
+      </ul>
+      <p>
+        O processo foi desenhado para ser rápido, seguro e sem complicações, mesmo para quem nunca usou aplicativos de saúde.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Processos sem complicações</h2>
+      <ul>
+        <li>Confirmação com <strong>um único botão grande</strong>, acompanhado de áudio explicativo.</li>
+        <li>Exemplo: “Você deseja confirmar sua consulta com Dr. João?”</li>
+        <li>Cancelamento direto, <strong>sem etapas confusas ou redirecionamentos</strong>.</li>
+        <li>Opção de reagendamento fácil e rápido, sem burocracia.</li>
+      </ul>
+      <p>
+        Flexibilidade para o usuário ajustar sua agenda conforme necessário, evitando faltas e otimizando o uso do sistema de saúde.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Modos de Acessibilidade Personalizados</h2>
+      <ul>
+        <li><strong>Modo Voz:</strong> comandos de fala, leitura de telas e confirmação por áudio.</li>
+        <li><strong>Modo Visual Acessível:</strong> fontes grandes, alto contraste, modo noturno.</li>
+        <li><strong>Modo Fácil:</strong> até 3 opções por tela, textos curtos, imagens e narração.</li>
+        <li>Compatibilidade com leitores de tela e teclados adaptados.</li>
+      </ul>
+      <p>
+        O design universal garante acesso para todos, independentemente da limitação. O usuário escolhe o modo mais confortável para si.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Tecnologia que entende você</h2>
+      <ul>
+        <li><strong>Chatbot com IA conversacional:</strong> ajuda o usuário a navegar e tirar dúvidas em linguagem simples.</li>
+        <li><strong>IA Preditiva:</strong> sugere médicos e horários com base em histórico e preferências.</li>
+        <li><strong>Comandos naturais:</strong> “Consulta com clínico semana que vem”.</li>
+        <li>Assistente virtual disponível 24h para suporte.</li>
+      </ul>
+      <p>
+        A inteligência artificial torna o atendimento mais personalizado, eficiente e acolhedor.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Recursos que ajudam no dia a dia</h2>
+      <ul>
+        <li>Integração com <strong>WhatsApp</strong> para lembretes de consulta e confirmação.</li>
+        <li><strong>Notificações com áudio</strong> no horário da consulta.</li>
+        <li>Impressão de comprovantes em <strong>PDF automático</strong>.</li>
+        <li>Histórico de consultas e exames acessível ao usuário.</li>
+        <li>Alertas de campanhas de vacinação e exames preventivos.</li>
+      </ul>
+      <p>
+        Recursos pensados para facilitar o cotidiano do cidadão e de sua família, promovendo saúde preventiva.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Segurança e Privacidade</h2>
+      <ul>
+        <li>Dados protegidos conforme a <strong>LGPD</strong> (Lei Geral de Proteção de Dados).</li>
+        <li>Confirmação de identidade simplificada e segura.</li>
+        <li>Opção de acesso por <strong>biometria</strong> ou <strong>PIN</strong>.</li>
+        <li>Informações nunca compartilhadas sem consentimento.</li>
+        <li>Auditoria e transparência em todas as operações.</li>
+      </ul>
+      <p>
+        A privacidade do usuário é prioridade em todas as etapas do processo. Segurança e confiança são valores fundamentais do projeto.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Parcerias e Expansão</h2>
+      <ul>
+        <li>Integração com sistemas municipais e estaduais de saúde.</li>
+        <li>Parcerias com ONGs e associações de PcDs.</li>
+        <li>Expansão futura para vacinação, exames laboratoriais e outros serviços.</li>
+        <li>Equipe aberta a sugestões e novas colaborações.</li>
+        <li>Capacitação de agentes comunitários para apoiar usuários.</li>
+      </ul>
+      <p>
+        O projeto está em constante evolução para atender cada vez mais pessoas e ampliar o impacto social.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Depoimentos de Usuários</h2>
+      <ul>
+        <li>“Agora consigo marcar minhas consultas sem pedir ajuda.”</li>
+        <li>“O modo fácil me ajudou a entender cada passo.”</li>
+        <li>“Receber lembretes no WhatsApp fez toda diferença!”</li>
+        <li>“Minha mãe, que não sabia mexer no celular, agora agenda sozinha.”</li>
+        <li>“O atendimento ficou mais humano e próximo.”</li>
+      </ul>
+      <p>
+        Feedbacks positivos reforçam o impacto social do Agenda Acessível e motivam a equipe a continuar inovando.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Por que o Agenda Acessível importa?</h2>
+      <ul>
+        <li>Promove <strong>acesso à saúde com dignidade e autonomia</strong>.</li>
+        <li>Reduz barreiras digitais enfrentadas pelos mais vulneráveis.</li>
+        <li>Contribui para um SUS mais eficiente e humano.</li>
+        <li>Exemplo de como a tecnologia pode transformar vidas.</li>
+        <li>Inspira outras iniciativas de inclusão digital no Brasil.</li>
+      </ul>
+      <div class="quote">
+        “Tecnologia só é progresso se incluir a todos.”
+      </div>
+      <p>
+        Obrigado! Dúvidas ou sugestões? Estamos à disposição.<br>
+        <strong>Autores:</strong> Marcos Davi, Guilherme José, Marcio Rafael
+      </p>
+    </div>
+
+    <div class="navigation">
+      <button id="prevBtn" onclick="changeSlide(-1)">Anterior</button>
+      <span class="slide-indicator" id="slideIndicator"></span>
+      <button id="nextBtn" onclick="changeSlide(1)">Próximo</button>
+    </div>
+  </div>
+  <div class="footer">
+    Agenda Acessível &mdash; Projeto acadêmico para inclusão digital na saúde pública. 
+  </div>
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('slideIndicator');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSlide = 0;
+
+    function updateIndicator() {
+      indicator.textContent = `Slide ${currentSlide + 1} de ${slides.length}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === slides.length - 1;
+    }
+
+    function changeSlide(direction) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = Math.max(0, Math.min(currentSlide + direction, slides.length - 1));
+      slides[currentSlide].classList.add('active');
+      updateIndicator();
+    }
+
+    // Inicialização
+    updateIndicator();
+  </script>
+</body>
+</html>
